@@ -1,0 +1,84 @@
+###############################################################################
+ _        _______  ______   _______   _________ _______  _ 
+( (    /|(  ___  )(  __  \ (  ____ \  \__    _/(  ____ \( )
+|  \  ( || (   ) || (  \  )| (    \/     )  (  | (    \/| |
+|   \ | || |   | || |   ) || (__         |  |  | (_____ | |
+| (\ \) || |   | || |   | ||  __)        |  |  (_____  )| |
+| | \   || |   | || |   ) || (           |  |        ) |(_)
+| )  \  || (___) || (__/  )| (____/\  |\_)  )  /\____) | _ 
+|/    )_)(_______)(______/ (_______/  (____/   \_______)(_)
+                                                           
+################################################################################
+
+Course Details : Node.js Full Course for Beginners 
+Tutor :  Dave grey, Youtube 
+Published  :  December 3 2021 
+
+#################################################################################
+
++-----------------------+
+|    Introduction       |
++-----------------------+  
+
+In this course, we would be going via topics than going through deep 
+concepts. By this way, we will have subject knowledge on what is being 
+learnt 
+
++-----------------------+
+|    How node differs   |
++-----------------------+
+
+- Runs in the server 
+- This means the server will have a runtime environment. 
+- Console would be node console. It would be in terminal / command prompt 
+        console.log("Hello World")
+
+
++------------------------------------+
+|    Global object vs Window Object  |
++------------------------------------+
+
+- Global object is the runtime environment. Window object is the browser. 
+
+        console.log("Hello World)
+        console.log(global)
+
+Hello World!
+<ref *1> Object [global] {
+  global: [Circular *1],
+  clearInterval: [Function: clearInterval],
+  clearTimeout: [Function: clearTimeout],
+  setInterval: [Function: setInterval],
+  setTimeout: [Function: setTimeout] {
+    [Symbol(nodejs.util.promisify.custom)]: [Getter]
+  },
+  queueMicrotask: [Function: queueMicrotask],
+  performance: Performance {
+    nodeTiming: PerformanceNodeTiming {
+      name: 'node',
+      entryType: 'node',
+      startTime: 0,
+      duration: 400.14816600084305,
+      nodeStart: 120.28114499896765,
+      v8Start: 175.724365003407,
+      bootstrapComplete: 359.1304709985852,
+      environment: 250.2307410016656,
+      loopStart: -1,
+      loopExit: -1,
+      idleTime: 0
+    },
+    timeOrigin: 1644758615694.229
+  },
+  clearImmediate: [Function: clearImmediate],
+  setImmediate: [Function: setImmediate] {
+    [Symbol(nodejs.util.promisify.custom)]: [Getter]
+  }
+}
+
++-------------------------+
+| Common JS Modules - OS  |
++-------------------------+
+
+- Common core modules are present in Node than JS 
+
+
