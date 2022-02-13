@@ -81,4 +81,132 @@ Hello World!
 
 - Common core modules are present in Node than JS 
 
+//Common JS Modules
+
+const os = require("os");
+const path = require("path");
+
+
+//Prints the linux version of the os
+console.log(os.type());
+
+//Prints the version of the operating system Again linux version
+console.log(os.version());
+
+//Prints the location of home directory
+console.log(os.homedir());
+
+//prints current directory Name
+console.log(__dirname);
+
+//prints the file name
+console.log(__filename);
+
+//Print the entire dir and path
+console.log(path.dirname(__filename)); //Super useful!
+
+//File base name. Remember prints only the file namer
+console.log(path.basename(__filename));
+
+//print the the file extension name
+console.log(path.extname(__filename)); //Super useful
+
+//Lets check what this is doing...
+console.log(path.parse(__filename)); //Amazing. Throws and object full of the meta data
+
++-------------------------+
+|    Custom Modulation    | 
++-------------------------+
+
+math.js
+
+const add = (a, b) => a + b;
+const sub = (a, b) => a - b;
+const mul = (a, b) => a * b;
+const div = (a, b) => a / b;
+
+//Object destructured export
+module.exports = { add, sub, mul, div };
+
+//you could also export like export.add = (a, b) => a + b
+
+const math = require("./math");
+console.log(math.add(2, 4));
+
+//Destructured import
+
+const { sub } = require("./math");
+console.log(sub(2, 6));
+
+Topics revised were 
+
+- Node runtime introduction 
+- Node vs vanilla javascript 
+- gloab object vs window object 
+- using common js modules , os and path modules
+- exporting code via js files 
+- custom modulations 
+
++------------------------------------------+
+|    Create, Read and Update files in JS   | 
++------------------------------------------+
+
+- the filesystem modules 
+
+
+const fs = require("fs");
+const path = require("path");
+//Reading file
+
+// Remember important notes when we wrote this function
+// You could pass a utf-8 parameter to encode the data directly without converting to string
+// Always the data read will be a buffer string!!!! <Buffer 48 69 2c 20 74 68 69 73 20 69 73 20 53 69 76 61>
+// Unless you convert it, it aint going to pretty print it!!
+
+//READING A FILE
+fs.readFile(path.join(__dirname, "starter.txt"), "utf-8", (err, data) => {
+  if (err) throw err;
+  console.log(data);
+});
+
+console.log("Hello");
+
+//WRITING A FILE
+fs.writeFile(
+  path.join(__dirname, "reply.txt"),
+  "Writing text using node js is fun",
+  (err, data) => {
+    if (err) throw err;
+    console.log("Operation Complete Write complete");
+    //Appending
+    fs.appendFile(
+      path.join(__dirname, "reply.txt"),
+      " Appended text",
+      (err) => {
+        if (err) throw err;
+        console.log("Append Complete");
+        //Renaming
+
+        fs.rename(
+          path.join(__dirname, "reply.txt"),
+          path.join(__dirname, "new_reply.txt"),
+
+          (err) => {
+            if (err) throw err;
+            console.log("Rename Complete");
+          }
+        );
+      }
+    );
+  }
+);
+
+//APPENDING A FILE
+
+//exit on uncaught errors
+//process is an inbuilt module in node which helps in logging errors
+process.on("uncaughtException", (err) => {
+  console.error(`There was an uncaught error:${err}`);
+  process.exit(1); //exit in 1 second?
+});
 
