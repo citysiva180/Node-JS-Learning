@@ -210,3 +210,23 @@ process.on("uncaughtException", (err) => {
   process.exit(1); //exit in 1 second?
 });
 
+
+There were 4 different ways in which we could read and write files 
+- first would be the direct function call 
+- the second would be a nested function call 
+- the third would be asyc and await function to read, delete, append, unlink files etc 
+- the fourth would be streaming input and output streaming the files 
+
+In all these cases, streaming the files was the best way to deal with file management in 
+node js. Rest all is repeatitive monotonous syntaxes 
+
++-----------------------------+
+|    Node Package Manager...  | 
++-----------------------------+
+
+difference between common js modules vs npm is that... 
+
+npm was created by 3rd party coders 
+npm also checks the standards of the code 
+npm has almost all the code you wish to re-use 
+
