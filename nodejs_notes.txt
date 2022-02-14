@@ -287,3 +287,6 @@ start : "node index.js" will run the node file when you just type npm start
 dev : "nodemon index.js" will run the nodemon version of the file when you are running your code 
 
 With this way, you could develop, code and add scripts using npm 
+
+node, if you uninstall your package somewhere, accordingly you will need to remove that package 
+reference in scripts 
