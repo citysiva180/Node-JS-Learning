@@ -230,3 +230,60 @@ npm was created by 3rd party coders
 npm also checks the standards of the code 
 npm has almost all the code you wish to re-use 
 
+Important concepts 
+- code sharing is done via node package manager
+- you could use nodemon to continually run your code with out rerun 
+
+
+To make a npm package you will need to run the following command 
+
+- npm init
+
+this will download node modules to your folder 
+
+after adding this you could check out the package.json and the package.lock.json 
+- donot tamper with the package.lock.json 
+- but the package.json could be modified to add some scripts
+
+To install a 3rd part npm package, simply call  
+
+npm -i package-name 
+
+example : npm install date-fns 
+
+Now, packages come with different versions. You could refer the required version in the 
+object destructure method during import as shown below 
+
+const { v4: uuid } = require("uuid");
+
+If you go an check your package.json post installation, you could see that the 
+package is added in the dependencies. Along with this, you could see that there is a 
+version added to it. 
+
+on seeing this notation, you could understand that 
+"^8.3.2"
+where 8 is the main version, 2 is the subversion and it goes by 
+the ^ symbol indicates that, you could have any other subversion if you need, 
+but you should have only 8 as the main version. 
+
+In package.json you could see that there is a script section 
+where you could add scripts 
+
+In this area, you could add scripts on 
+- dev, prod and testing etc. 
+
+if you need a dependency that should only be used in dev then 
+you will need to run the below command with parameters 
+
+- npm i package-name -D 
+or 
+- npm i package-name --save-dev  
+
+Which will save the package and run it only for dev 
+
+In Scripts, you could add the entry point for your code. 
+
+start : "node index.js" will run the node file when you just type npm start 
+dev : "nodemon index.js" will run the nodemon version of the file when you are running your code 
+
+With this way, you could develop, code and add scripts using npm 
