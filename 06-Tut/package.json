@@ -4,6 +4,8 @@
   "description": "learning express js",
   "main": "index.js",
   "scripts": {
+    "start":"node server",
+    "dev":"nodemon server",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
@@ -11,5 +13,13 @@
     "expressjs"
   ],
   "author": "sivarajan",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^2.0.15"
+  },
+  "dependencies": {
+    "date-fns": "^2.28.0",
+    "express": "^4.17.3",
+    "uuid": "^8.3.2"
+  }
 }

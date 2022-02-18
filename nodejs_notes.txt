@@ -453,20 +453,24 @@ Once you get the file path, serve the file!
   } else {
     //404
     //301 -  redirect!
-    switch (path.parse(filePath).base) {
+    switch (path.parse(filePath).base) { //There are 2 cases for redirect here which is specified. The reasons be many. but they add to header promptly and route properly 
       case "old-page.html":
-        res.writeHead(301, { Location: "/new-page.html" });
+        res.writeHead(301, { Location: "/new-page.html" }); 
         res.end();
         break;
-      case "www-page.html":
-        res.writeHead(301, { Location: "/" });
+      case "www-page.html": //case you end up in a page .html a redirect happens 
+        res.writeHead(301, { Location: "/" }); 
         res.end();
         break;
       default:
-        serveFile(path.join(__dirname, "views", "404.html"), "text/html", res);
+        serveFile(path.join(__dirname, "views", "404.html"), "text/html", res); //if route not found... go with 404
     }
   }
 });
+
+Serving the file itself is assigned to a different function. With this function you could server your 
+file positively in the port 
+If an error occurs then its a server error which is notified by a 500 error code 
 
 //Make the server listening to port 3500
 server.listen(PORT, () => console.log(`Server running on port ${PORT}`));
