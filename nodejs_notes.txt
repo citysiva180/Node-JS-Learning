@@ -292,3 +292,203 @@ With this way, you could develop, code and add scripts using npm
 node, if you uninstall your package somewhere, accordingly you will need to remove that package 
 reference in scripts 
 
++-------------------------------------+
+|    Event Emitters and listeners...  | 
++-------------------------------------+
+
+In this chapter I get to learn about event emitters and listeners. 
+
+This would be the best way to explain what emitters are... 
+I just googled it. 
+
+EVENT EMITTERS (More like a commander or a orator) | Should be the celestials 
+---------------
+
+The EventEmitter is a module that facilitates communication/interaction between objects in Node. 
+EventEmitter is at the core of Node asynchronous event-driven architecture. ... 
+The concept is quite simple: emitter objects emit named events that cause previously registered listeners to be called.
+
+LISTENERS (More like soldier or a audience who listens!) | should be the watchers 
+---------
+
+Much of the Node. js core API is built around an idiomatic asynchronous event-driven architecture in which certain 
+kinds of objects (called "emitters") emit named events that cause Function objects ("listeners") to be called. ... 
+All objects that emit events are instances of the EventEmitter class.
+
+
+To initiate a emitter, call the emitter class, instantiate an object with that class. 
+
+
+The below code... 
+
+So what we are basically doing here is that we have a main file where we have a main program...
+and the sub program which logs the time, an id and a message on running the file 
+the log file and folder also automatically creates on loading... So this is cool. 
+
+
+Index.js : 
+
+const logEvents = require("./logEvents");
+
+const EventEmitter = require("events");
+
+class MyEmitter extends EventEmitter {}  //Instantiation happens here. 
+
+//initialize object
+const myEmitter = new MyEmitter();
+
+//add a listner for the log event
+myEmitter.on("log", (msg) => logEvents(msg));  
+
+setTimeout(() => {
+  //emit the event
+  myEmitter.emit("log", "Log event emitted");
+}, 2000);
+
+
+const { format } = require("date-fns");
+const { v4: uuid } = require("uuid");
+
+const fs = require("fs");
+const path = require("path");
+const fsPromises = require("fs").promises;
+
+const logEvents = async (message) => {
+  const dateTime = `${format(new Date(), "yyyy-MM-dd\tHH:mm:ss")}`;
+  const logItem = `${dateTime}\t${uuid()}\t${message}\n`;
+  console.log(logItem);
+  try {
+    if (!fs.existsSync(path.join(__dirname, "logs"))) {
+      await fsPromises.mkdir(path.join(__dirname, "logs"));
+    }
+    //testing now again...again...and again...
+    await fsPromises.appendFile(
+      path.join(__dirname, "logs", "eventlogs.txt"),
+      logItem
+    );
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+module.exports = logEvents;
+
++-------------------------------------+
+|    Building a server with Node....  | 
++-------------------------------------+
+
+Loads of things in this lesson to unpack. To begin with we need an emitter, that 
+shares the type of file and a switch statement to check the file type. Along with this 
+we also need to know the file path of this variable. 
+
+start with importing http module, path module, filesystem and filesystem.promises and logEvents and EventEmitter... 
+Finally you would need to add port to your server 
+
+const PORT = process.env.PORT || 3500
+
+after Adding the port, you would need to add the server function 
+pass request and response as your parameters 
+add an emitter which logs your changes in a log.txt file 
+to get the extension of the file, use the filesystem module and get the extension of your file using the extname function 
+
+determine your file type using the file extension method. I know this code is not the ideal one for today's standards. 
+But this code will help in building a simple server 
+
+ const extension = path.extname(req.url); //get the url name using this
+
+  //Identifying the type of file in the request url
+
+  let contentType;
+
+  switch (extension) {
+    case ".css":
+      contentType = "text/css";
+      break;
+    case ".js":
+      contentType = "text/javascript";
+      break;
+    case ".json":
+      contentType = "application/json";
+      break;
+    case ".jpeg":
+      contentType = "image/jpeg";
+      break;
+    case ".png":
+      contentType = "image/png";
+      break;
+    case ".txt":
+      contentType = "text/plain";
+      break;
+    default:
+      contentType = "text/html";
+  }
+
+File Path determination... This would help in determin the path and its extension. 
+It also helps in confirming the file extension 
+
+ //file path determination
+  let filePath =
+    contentType === "text/html" && req.url == "/"
+      ? path.join(__dirname, "views", "index.html")
+      : contentType === "text/html" && req.url.slice(-1) === "/"
+      ? path.join(__dirname, "views", req.url, "index.html")
+      : contentType === "text/html"
+      ? path.join(__dirname, "views", req.url)
+      : path.join(__dirname, req.url);
+
+If a file path exists / file exists without "/" you just need to add .html to it since you are unable to find its 
+content type 
+
+  if (!extension && req.url.slice(-1) !== "/") {
+    filePath += ".html";
+  }
+
+
+Once you get the file path, serve the file! 
+
+  const fileExists = fs.existsSync(filePath);
+  if (fileExists) {
+    //serve the file
+    serveFile(filePath, contentType, res);
+  } else {
+    //404
+    //301 -  redirect!
+    switch (path.parse(filePath).base) {
+      case "old-page.html":
+        res.writeHead(301, { Location: "/new-page.html" });
+        res.end();
+        break;
+      case "www-page.html":
+        res.writeHead(301, { Location: "/" });
+        res.end();
+        break;
+      default:
+        serveFile(path.join(__dirname, "views", "404.html"), "text/html", res);
+    }
+  }
+});
+
+//Make the server listening to port 3500
+server.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+
+const serveFile = async (filePath, contentType, response) => {
+  try {
+    const rawData = await fsPromises.readFile(
+      filePath,
+      !contentType.includes("image") ? "utf8" : ""
+    );
+    const data =
+      contentType === "application/json" ? JSON.parse(rawData) : rawData;
+    response.writeHead(filePath.includes("404.html") ? 404 : 200, {
+      "Content-Type": contentType,
+    });
+    response.end(
+      contentType === "application/json" ? JSON.stringify(data) : data
+    );
+  } catch (err) {
+    console.log(err);
+    myEmitter.emit("log", `${err.name}\t${err.message}`, "reqLog.txt");
+    response.statusCode = 500;
+    response.end();
+  }
+};
