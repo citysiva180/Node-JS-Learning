@@ -1,0 +1,6 @@
+2022-02-19	06:21:47	e08463cf-e1d3-4e31-966a-4fa26a19c279	Error Not Allowed by CORS
+2022-02-19	10:56:30	a6072f7f-b92d-47c9-a009-6e12cc2012ee	Error ENOENT: no such file or directory, stat '/Users/sivarajan/Node JS Learning/Node-JS-Learning/08-Tut/routes/views/index.html'
+2022-02-19	10:56:37	242fdc1c-84c5-483f-b2d0-a80b721afac3	Error ENOENT: no such file or directory, stat '/Users/sivarajan/Node JS Learning/Node-JS-Learning/08-Tut/routes/views/index.html'
+2022-02-19	10:56:54	27803431-8878-453c-ba3f-61ec39c2ee39	Error ENOENT: no such file or directory, stat '/Users/sivarajan/Node JS Learning/Node-JS-Learning/08-Tut/routes/views/new-page.html'
+2022-02-19	11:21:15	6983d10b-4ab9-49d8-9647-078974ffdeae	TypeError req.json is not a function
+2022-02-19	11:26:12	1cad56f6-e713-4388-a81a-db345f5c65ba	TypeError req.json is not a function
