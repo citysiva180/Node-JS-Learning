@@ -1,16 +1,13 @@
 const express = require("express");
 const router = express.Router();
-const employeesController = require("../../controllers/employeesControllers");
-//instantiating empty objects for data
-const data = {};
-data.employees = require("../../public/text/data/employees.json");
+const employeesController = require("../../controllers/employeesController");
 
 router
   .route("/")
   .get(employeesController.getAllEmployees)
-  .post(employeesController.createNewEmployees)
+  .post(employeesController.createNewEmployee)
   .put(employeesController.updateEmployee)
-  .delete(employeesController.deleteEmployees);
+  .delete(employeesController.deleteEmployee);
 
 router.route("/:id").get(employeesController.getEmployee);
 

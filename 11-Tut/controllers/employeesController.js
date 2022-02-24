@@ -5,26 +5,23 @@ const data = {
   },
 };
 
-//Route Handlers...
-
 const getAllEmployees = (req, res) => {
   res.json(data.employees);
 };
 
-const createNewEmployees = (req, res) => {
+const createNewEmployee = (req, res) => {
   const newEmployee = {
-    id: req.body.id,
-    first_name: req.body.first_name,
-    last_name: req.body.last_name,
-    email: req.body.email,
-    gender: req.body.gender,
-    ip_address: req.body.ip_address,
+    id: data.employees?.length
+      ? data.employees[data.employees.length - 1].id + 1
+      : 1,
+    firstname: req.body.firstname,
+    lastname: req.body.lastname,
   };
 
-  if (!newEmployee.first_name || !newEmployee.last_name) {
+  if (!newEmployee.firstname || !newEmployee.lastname) {
     return res
       .status(400)
-      .json({ message: "First and Last Names are required" });
+      .json({ message: "First and last names are required." });
   }
 
   data.setEmployees([...data.employees, newEmployee]);
@@ -40,12 +37,8 @@ const updateEmployee = (req, res) => {
       .status(400)
       .json({ message: `Employee ID ${req.body.id} not found` });
   }
-
-  if (req.body.first_name) employee.first_name = req.body.first_name;
-  if (req.body.last_name) employee.last_name = req.body.last_name;
-  if (req.body.email) employee.email = req.body.email;
-  if (req.body.gender) employee.gender = req.body.gender;
-  if (req.body.ip_address) employee.ip_address = req.body.ip_address;
+  if (req.body.firstname) employee.firstname = req.body.firstname;
+  if (req.body.lastname) employee.lastname = req.body.lastname;
   const filteredArray = data.employees.filter(
     (emp) => emp.id !== parseInt(req.body.id)
   );
@@ -56,8 +49,8 @@ const updateEmployee = (req, res) => {
   res.json(data.employees);
 };
 
-const deleteEmployees = (req, res) => {
-  const employee = data.employess.find(
+const deleteEmployee = (req, res) => {
+  const employee = data.employees.find(
     (emp) => emp.id === parseInt(req.body.id)
   );
   if (!employee) {
@@ -70,12 +63,10 @@ const deleteEmployees = (req, res) => {
   );
   data.setEmployees([...filteredArray]);
   res.json(data.employees);
-
-  res.json(data.employees);
 };
 
 const getEmployee = (req, res) => {
-  const employee = data.employess.find(
+  const employee = data.employees.find(
     (emp) => emp.id === parseInt(req.params.id)
   );
   if (!employee) {
@@ -88,8 +79,8 @@ const getEmployee = (req, res) => {
 
 module.exports = {
   getAllEmployees,
-  createNewEmployees,
+  createNewEmployee,
   updateEmployee,
-  deleteEmployees,
+  deleteEmployee,
   getEmployee,
 };
